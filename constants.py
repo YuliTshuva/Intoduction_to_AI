@@ -4,4 +4,7 @@ DATA_DIR = "data"
 MODELS_DIR = "models"
 SEED = 42
 N_TRIALS = 1000
-N_JOBS = 10
+N_JOBS = 40
+PLOTS_DIR = "plots"
+COLORS = ["dodgerblue", "hotpink", "salmon", "royalblue", "aquamarine", "turquoise", "mediumturquoise",
+          "deepskyblue", "violet", "mediumslateblue"]

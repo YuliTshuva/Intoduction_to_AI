@@ -28,10 +28,16 @@ X_train, X_val, y_train, y_val = train_test_split(X_train_full, y_train_full,
                                                   test_size=VAL_SIZE / (1 - TEST_SIZE),
                                                   random_state=SEED)
 
+# Save the sets
+X_train_full.to_csv(join(DATA_DIR, "X_train.csv"), index=False)
+X_test.to_csv(join(DATA_DIR, "X_test.csv"), index=False)
+y_train_full.to_csv(join(DATA_DIR, "y_train.csv"), index=False)
+y_test.to_csv(join(DATA_DIR, "y_test.csv"), index=False)
+
 # Train models
-xgb_model = get_xgb_model(X, y, X_train, X_val, y_train, y_val, trials=N_TRIALS)
-lgbm_model = get_lgbm_model(X, y, X_train, X_val, y_train, y_val, trials=N_TRIALS)
-catboost_model = get_catboost_model(X, y, X_train, X_val, y_train, y_val, trials=N_TRIALS)
+xgb_model = get_xgb_model(X_train_full, y_train_full, X_train, X_val, y_train, y_val, trials=N_TRIALS)
+lgbm_model = get_lgbm_model(X_train_full, y_train_full, X_train, X_val, y_train, y_val, trials=N_TRIALS)
+catboost_model = get_catboost_model(X_train_full, y_train_full, X_train, X_val, y_train, y_val, trials=N_TRIALS)
 
 # Save models
 with open(join(MODELS_DIR, "xgb_model.pkl"), "wb") as f:
