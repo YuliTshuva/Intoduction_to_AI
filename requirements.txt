@@ -1,3 +1,7 @@
+pandas
+matplotlib
+optuna
+scikit-learn
 xgboost
 lightgbm
 catboost
