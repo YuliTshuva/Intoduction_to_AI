@@ -1,6 +1,7 @@
 pandas
 matplotlib
 optuna
+shap
 scikit-learn
 xgboost
 lightgbm
