@@ -55,7 +55,8 @@ def get_xgb_model(X, y, X_train, X_val, y_train, y_val, trials=1000):
         model = XGBClassifier(**param)
         model.fit(X_train, y_train)
         preds = model.predict(X_val)
-        return np.mean([accuracy_score(y_val, preds), roc_auc_score(y_val, preds)])
+        scores = model.predict_proba(X_val)[:, 1]
+        return np.mean([accuracy_score(y_val, preds), roc_auc_score(y_val, scores)])
 
     study = optuna.create_study(direction="maximize")
     study.optimize(objective, n_trials=trials, show_progress_bar=True, callbacks=[early_stopping_callback])
@@ -90,7 +91,8 @@ def get_lgbm_model(X, y, X_train, X_val, y_train, y_val, trials=1000):
         model = LGBMClassifier(**param)
         model.fit(X_train, y_train)
         preds = model.predict(X_val)
-        return np.mean([accuracy_score(y_val, preds), roc_auc_score(y_val, preds)])
+        scores = model.predict_proba(X_val)[:, 1]
+        return np.mean([accuracy_score(y_val, preds), roc_auc_score(y_val, scores)])
 
     study = optuna.create_study(direction="maximize")
     study.optimize(objective, n_trials=trials, show_progress_bar=True, callbacks=[early_stopping_callback])
@@ -124,7 +126,8 @@ def get_catboost_model(X, y, X_train, X_val, y_train, y_val, trials=1000):
         model = CatBoostClassifier(**param)
         model.fit(X_train, y_train)
         preds = model.predict(X_val)
-        return np.mean([accuracy_score(y_val, preds), roc_auc_score(y_val, preds)])
+        scores = model.predict_proba(X_val)[:, 1]
+        return np.mean([accuracy_score(y_val, preds), roc_auc_score(y_val, scores)])
 
     study = optuna.create_study(direction="maximize")
     study.optimize(objective, n_trials=trials, show_progress_bar=True, callbacks=[early_stopping_callback])

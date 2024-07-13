@@ -53,8 +53,8 @@ ax[0].set_yticks(np.arange(0, 1.1, 0.1))
 # Plot a ROC curve of the models
 i = 0
 for model_name, model in models.items():
-    fpr, tpr, _ = roc_curve(y_test, model.predict(X_test))
-    auc = roc_auc_score(y_test, model.predict(X_test))
+    fpr, tpr, _ = roc_curve(y_test, model.predict_proba(X_test)[:, 1])
+    auc = roc_auc_score(y_test, model.predict_proba(X_test)[:, 1])
     ax[1].plot(fpr, tpr, label=f"{model_name}: {auc:.3f}", color=colors[i])
     i += 1
 ax[1].set_title("ROC curve of the models", fontsize=22)
